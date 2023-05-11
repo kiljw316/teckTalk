@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FileTest {
 
     // 파일 객체는 항상 Path 로부터 시작된다.
-    private static final String TEST_FILE_DIR_PATH = "src/test/resources";
-    private static final String TEST_FILE_PATH = "src/test/resources/testFile.txt";
-    private static final String TEST_FILE_COPY_PATH = "src/test/resources/testCopyFile.txt";
-    private static final String TEST_DELETE_FILE_PATH = "src/test/resources/testDeleteFile.txt";
+    private static final String TEST_FILE_DIR_PATH = "src/test/resources/file";
+    private static final String TEST_FILE_PATH = "src/test/resources/file/testFile.txt";
+    private static final String TEST_FILE_COPY_PATH = "src/test/resources/file/testCopyFile.txt";
+    private static final String TEST_DELETE_FILE_PATH = "src/test/resources/file/testDeleteFile.txt";
     private static final String SEARCH_TERM = "test";
     private static final String TEST_FILE_CONTENTS = "hello world";
 
