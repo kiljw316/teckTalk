@@ -1,7 +1,6 @@
 package com.humelo.techtalk;
 
 import com.humelo.techtalk.nas.NetworkAttachedStorage;
-import com.humelo.techtalk.nas.impl.NetworkAttachedStorageImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +37,7 @@ public class NetworkAttachedStorageTest {
 
     private static final String SEARCH_TERM = "test";
 
-    NetworkAttachedStorage nas = new NetworkAttachedStorageImpl();
+    NetworkAttachedStorage nas = new NetworkAttachedStorage();
 
     @BeforeEach
     void setUp() throws IOException {
