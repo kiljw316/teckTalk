@@ -128,7 +128,7 @@ public class FileTest {
                 .collect(Collectors.toList());
 
         //then
-        assertThat(matchingFiles).hasSize(2);
+        assertThat(matchingFiles).hasSize(3);
     }
 
     @DisplayName("파일 존재 유무 확인")
@@ -157,7 +157,7 @@ public class FileTest {
                 .collect(Collectors.toList());
 
         //then
-        assertThat(fileNameList).hasSize(2);
+        assertThat(fileNameList).hasSize(3);
     }
 
     @DisplayName("디렉터리 생성")
