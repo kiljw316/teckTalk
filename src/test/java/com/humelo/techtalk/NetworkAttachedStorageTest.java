@@ -24,16 +24,16 @@ public class NetworkAttachedStorageTest {
      * /nas 디렉터리를 생성해야 한다.
      * NAS 는 경로를 모른다. 요청 온 경로에 해당 작업만 실행시킬뿐
      */
-    private static final String ROOT_PATH = "src/test/resources/nas";
+    private static final Path ROOT_PATH = Path.of("src/test/resources/nas");
 
-    private static final String TEST_FILE1_PATH = ROOT_PATH + "/testFile.txt";
+    private static final Path TEST_FILE1_PATH = ROOT_PATH.resolve("testFile.txt");
     private static final String TEST_FILE1_CONTENTS = "hello world";
 
-    private static final String TEST_FILE2_PATH = ROOT_PATH + "/testFile2.txt";
+    private static final Path TEST_FILE2_PATH = ROOT_PATH.resolve("testFile2.txt");
     private static final String TEST_FILE2_CONTENTS = "hello world2";
 
-    private static final String TEST_FILE_COPY_PATH = ROOT_PATH + "/testCopyFile.txt";
-    private static final String TEST_DELETE_FILE_PATH = ROOT_PATH + "/testDeleteFile.txt";
+    private static final Path TEST_FILE_COPY_PATH = ROOT_PATH.resolve("testCopyFile.txt");
+    private static final Path TEST_DELETE_FILE_PATH = ROOT_PATH.resolve("testDeleteFile.txt");
 
     private static final String SEARCH_TERM = "test";
 
@@ -60,7 +60,7 @@ public class NetworkAttachedStorageTest {
     void createTempFile() throws IOException {
         //given
         String contents = "hello world";
-        String filePath = ROOT_PATH + "/test.txt";
+        Path filePath = ROOT_PATH.resolve("test.txt");
         Path file = nas.createFile(filePath);
         nas.writeFile(filePath, contents);
 
@@ -74,11 +74,8 @@ public class NetworkAttachedStorageTest {
     @DisplayName("파일 읽기")
     @Test
     void readFile() throws IOException {
-        //given
-        Path testFilePath = nas.readFile(TEST_FILE1_PATH);
-
         //when
-        String fileContents = Files.readString(testFilePath);
+        String fileContents = nas.readString(TEST_FILE1_PATH);
 
         //then
         assertThat(fileContents).isEqualTo(TEST_FILE1_CONTENTS);
@@ -157,7 +154,7 @@ public class NetworkAttachedStorageTest {
     @Test
     void mkdirs() throws IOException {
         //given
-        String tempDirectoryPath = ROOT_PATH + "/testDir";
+        Path tempDirectoryPath = ROOT_PATH.resolve("testDir");
 
         //when
         Path directory = nas.createDirectory(tempDirectoryPath);

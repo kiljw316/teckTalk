@@ -10,57 +10,52 @@ import java.util.stream.Collectors;
 
 public class NetworkAttachedStorage {
 
-    public Path createFile(String path) throws IOException {
-        Path filePath = Path.of(path);
-        return Files.createFile(filePath);
+    public Path createFile(Path path) throws IOException {
+        return Files.createFile(path);
     }
 
-    public Path createDirectory(String path) throws IOException {
-        Path directoryPath = Path.of(path);
-        return Files.createDirectories(directoryPath);
+    public Path createDirectory(Path path) throws IOException {
+        return Files.createDirectories(path);
     }
 
-    public boolean removeDirectory(String path) throws IOException {
-        Path directoryPath = Path.of(path);
-
-        Files.walk(directoryPath)
+    public boolean removeDirectory(Path path) throws IOException {
+        Files.walk(path)
                 .sorted(Comparator.reverseOrder()) // 하위 디렉터리부터 삭제
                 .map(Path::toFile)
                 .forEach(File::delete);
 
-        return Files.deleteIfExists(directoryPath);
+        return Files.deleteIfExists(path);
     }
 
-    public Path readFile(String path) {
-        return Path.of(path);
+    public String readString(Path path) throws IOException {
+        return Files.readString(path);
     }
 
-    public Path writeFile(String path, String contents) throws IOException {
-        Path filePath = Path.of(path);
-        return Files.writeString(filePath, contents);
+    public Path writeFile(Path path, String contents) throws IOException {
+        return Files.writeString(path, contents);
     }
 
-    public Path copyFile(String source, String target) throws IOException {
-        return Files.copy(Path.of(source), Path.of(target));
+    public Path copyFile(Path source, Path target) throws IOException {
+        return Files.copy(source, target);
     }
 
-    public boolean deleteFile(String path) throws IOException {
-        return Files.deleteIfExists(Path.of(path));
+    public boolean deleteFile(Path path) throws IOException {
+        return Files.deleteIfExists(path);
     }
 
-    public List<Path> searchFile(String path, String searchTerm) throws IOException {
-        return Files.walk(Path.of(path))
+    public List<Path> searchFile(Path path, String searchTerm) throws IOException {
+        return Files.walk(path)
                 .filter(Files::isRegularFile)
                 .filter(p -> p.toString().contains(searchTerm))
                 .collect(Collectors.toList());
     }
 
-    public boolean exists(String path) {
-        return Files.exists(Path.of(path));
+    public boolean exists(Path path) {
+        return Files.exists(path);
     }
 
-    public List<Path> list(String path) throws IOException {
-        return Files.list(Path.of(path))
+    public List<Path> list(Path path) throws IOException {
+        return Files.list(path)
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
 
