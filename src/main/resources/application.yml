@@ -1,0 +1,9 @@
+root-path: "src/test/resources/nas"
+
+---
+spring:
+  config:
+    activate:
+      onProfile: prod
+
+root-path: "/vos"
