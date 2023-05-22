@@ -2,6 +2,8 @@ package com.humelo.techtalk.nas;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -29,6 +31,10 @@ public class NetworkAttachedStorage {
 
     public String readString(Path path) throws IOException {
         return Files.readString(path);
+    }
+
+    public byte[] readAllBytes(Path path) throws IOException {
+        return Files.readAllBytes(path);
     }
 
     public Path writeFile(Path path, String contents) throws IOException {
@@ -59,5 +65,17 @@ public class NetworkAttachedStorage {
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
 
+    }
+
+    public boolean notExists(Path resourcePath) {
+        return Files.notExists(resourcePath);
+    }
+
+    public InputStream newInputStream(Path resourcePath) throws IOException {
+        return Files.newInputStream(resourcePath);
+    }
+
+    public OutputStream newOutputStream(Path resourcePath) throws IOException {
+        return Files.newOutputStream(resourcePath);
     }
 }

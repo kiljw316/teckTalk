@@ -8,6 +8,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -164,4 +167,56 @@ public class NetworkAttachedStorageTest {
         assertThat(isDirectory).isTrue();
     }
 
+    @DisplayName("파일 읽기(바이트)")
+    @Test
+    void readFileBytes() throws IOException {
+        //when
+        byte[] contentsByteArray = nas.readAllBytes(TEST_FILE1_PATH);
+
+        //then
+        assertThat(new String(contentsByteArray, StandardCharsets.UTF_8)).isEqualTo(TEST_FILE1_CONTENTS);
+    }
+
+    @DisplayName("파일 인풋 스트림")
+    @Test
+    void inputStream() throws IOException {
+        //given
+        InputStream inputStream = nas.newInputStream(TEST_FILE1_PATH);
+
+        //when
+        byte[] contentsByteArray = inputStream.readAllBytes();
+
+        //then
+        assertThat(new String(contentsByteArray, StandardCharsets.UTF_8)).isEqualTo(TEST_FILE1_CONTENTS);
+    }
+
+    @DisplayName("파일 존재 유무 확인(없을 경우)")
+    @Test
+    void isNotExistFile() {
+        //given
+        Path filePath = ROOT_PATH.resolve("notExistsFile.txt");
+
+        //when
+        boolean notExists = nas.notExists(filePath);
+
+        //then
+        assertThat(notExists).isTrue();
+    }
+
+    @DisplayName("파일 아웃풋 스트림")
+    @Test
+    void outputStream() throws IOException {
+        //given
+        Path filePath = nas.createFile(ROOT_PATH.resolve("test.txt"));
+        OutputStream outputStream = nas.newOutputStream(filePath);
+
+        String contents = "hello world";
+        outputStream.write(contents.getBytes(StandardCharsets.UTF_8));
+
+        //when
+        String fileContents = nas.readString(filePath);
+
+        //then
+        assertThat(fileContents).isEqualTo(contents);
+    }
 }
